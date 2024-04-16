@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serveup
+  namespace: serveup-namespace
+  labels:
+    app: serveup
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serveup
+  template:
+    metadata:
+      labels:
+        app: serveup
+    spec:
+      containers:
+      - name: serveup-server
+        image: ozamoyal/serveup:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: SU_DATABASE_URL
+          valueFrom: 
+            configMapKeyRef:
+              name: serveup-configmap
+              key: database_url
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: serveup-service
+  namespace: serveup-namespace
+spec:
+  selector:
+    app: serveup
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

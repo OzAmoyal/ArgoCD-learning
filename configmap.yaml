@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: serveup-configmap
+  namespace: serveup-namespace
+data:
+  database_url: mongodb://mongodb-service.mongo-namespace.svc.cluster.local:27017/serveup
