@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: serveup-server
-        image: ozamoyal/serveup:latest
+        image: ozamoyal/serveup:alpine-lts
         ports:
         - containerPort: 3000
         env:
